@@ -35,4 +35,13 @@ public class CommentService implements ICommentService {
                 .build();
         commentRepository.save(comment);
     }
+
+    @Override
+    public void UpdateComment(Long id, CommentRequest commentRequest) {
+        Comment comment = commentRepository.findById(id).orElseThrow();
+        comment.setEditorsId(commentRequest.getEditorsId());
+        comment.setTitle(commentRequest.getTitle());
+        comment.setContent(commentRequest.getContent());
+        commentRepository.save(comment);
+    }
 }

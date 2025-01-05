@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Table(name = "article")
 @Data
@@ -22,5 +25,12 @@ public class Article {
 
     private String title;
     private String content;
+    private LocalDate createdAt;
+
+    private StatusArticle statusArticle;
+
+    @ElementCollection
+    private List<String> approvedBy;
+
 
 }

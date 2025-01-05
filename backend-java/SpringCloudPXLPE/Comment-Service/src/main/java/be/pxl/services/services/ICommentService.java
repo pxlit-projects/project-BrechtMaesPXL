@@ -12,4 +12,6 @@ public interface ICommentService {
     List<CommentResponse> getAllComment();
 
     void addComment(CommentRequest commentRequest);
+
+    void UpdateComment(Long id, CommentRequest commentRequest);
 }
