@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/article")
 @RequiredArgsConstructor
+
 public class ArticleController {
 
 
