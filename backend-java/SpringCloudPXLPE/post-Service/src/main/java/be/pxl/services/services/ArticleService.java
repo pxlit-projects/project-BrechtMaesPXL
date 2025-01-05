@@ -1,5 +1,6 @@
 package be.pxl.services.services;
 
+import be.pxl.services.Client.ReviewClient;
 import be.pxl.services.domain.Article;
 import be.pxl.services.domain.dto.ArticleRequest;
 import be.pxl.services.domain.dto.ArticleResponse;
@@ -13,10 +14,15 @@ import java.util.List;
 public class ArticleService implements IArticleService{
 
     private  final ArticleRepository articleRepository;
+    private final ReviewClient reviewClient;
+
+
+
     @Override
     public List<ArticleResponse> getAllArticles() {
          List<Article> articleq = articleRepository.findAll();
         return articleq.stream().map(this::mapToArticleResponse).toList();
+
     }
 
     private ArticleResponse mapToArticleResponse(Article article) {
@@ -34,5 +40,7 @@ public class ArticleService implements IArticleService{
                 .content(articleRequest.getContent())
                 .build();
         articleRepository.save(article);
+
+
     }
 }
