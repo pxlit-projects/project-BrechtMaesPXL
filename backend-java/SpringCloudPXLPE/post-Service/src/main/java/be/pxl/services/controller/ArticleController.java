@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin()
 @RestController
 @RequestMapping("/api/article")
 @RequiredArgsConstructor
@@ -25,15 +26,23 @@ public class ArticleController {
     public ResponseEntity<List<ArticleResponse>> getArticle(){
         return new ResponseEntity<List<ArticleResponse>>(articleService.getAllArticles(), HttpStatus.OK);
     }
+    @GetMapping("/{status}")
+    public ResponseEntity<List<ArticleResponse>> getArticleByStatus(@PathVariable String status){
+        return new ResponseEntity<List<ArticleResponse>>(articleService.getAllArticlesByStatus(status), HttpStatus.OK);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addArticle(@RequestBody ArticleRequest articleRequest , @RequestHeader String role){
+
+        articleService.checkIfRoleIsEditor(role);
         articleService.addArticle(articleRequest);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     public void updateArticle(@PathVariable Long id, @RequestBody ArticleRequest articleRequest , @RequestHeader String role){
+        articleService.checkIfRoleIsEditor(role);
         articleService.updateArticle(id, articleRequest);
     }
     @PutMapping("/{id}/status")

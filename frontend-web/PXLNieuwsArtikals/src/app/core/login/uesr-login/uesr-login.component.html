@@ -1,0 +1,52 @@
+<div class="login-container" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Gebruikersnaam</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            placeholder="Voer uw gebruikersnaam in"
+            required
+            />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Wachtwoord</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Voer uw wachtwoord in"
+              required
+              />
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="!loginForm.valid"
+              >
+              Login
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+      @if (successMessage) {
+        <div class="success-message">
+          {{ successMessage }}
+        </div>
+      }
+
+      @if (errorMessage) {
+        <div class="error-message">
+          {{ errorMessage }}
+        </div>
+      }
+    </div>

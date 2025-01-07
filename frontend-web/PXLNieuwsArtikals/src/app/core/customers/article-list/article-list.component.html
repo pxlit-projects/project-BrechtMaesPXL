@@ -1,0 +1,9 @@
+<!--<app-filter (filterChanged)="handleFilter($event)"></app-filter>-->
+<div class="md:container md:mx-auto container mx-auto mt-10">
+  <div class="grid grid-cols-3 gap-6">
+    @for(item of filteredData; track item.title){
+      <app-article-item [article]="item" ></app-article-item>
+    }
+
+  </div>
+</div>

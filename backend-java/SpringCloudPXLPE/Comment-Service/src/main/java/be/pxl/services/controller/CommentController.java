@@ -26,10 +26,10 @@ public class CommentController {
         commentService.addComment(commentRequest);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public void updateArticle(@PathVariable Long id, @RequestBody CommentRequest commentRequest){
-        commentService.updateComment(id, commentRequest);
-    }
+//    @PutMapping("/{id}")
+//    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+//    public void updateArticle(@PathVariable Long id, @RequestBody CommentRequest commentRequest){
+//        commentService.updateComment(id, commentRequest);
+//    }
 
 }

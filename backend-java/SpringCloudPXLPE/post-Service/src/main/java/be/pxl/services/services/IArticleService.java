@@ -12,7 +12,7 @@ import java.util.List;
 public interface IArticleService {
 
     List<ArticleResponse> getAllArticles();
-
+    List<ArticleResponse> getAllArticlesByStatus(String status);
     void addArticle(ArticleRequest article);
 
     void updateArticle(Long id, ArticleRequest article);

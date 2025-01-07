@@ -1,6 +1,7 @@
 package be.pxl.services.repository;
 
 import be.pxl.services.domain.Article;
+import be.pxl.services.domain.StatusArticle;
 import feign.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByFilters(@Param("content") String content,
                                 @Param("editorsId") Long editorsId,
                                 @Param("date") LocalDate date);
+    List<Article> findAllByStatusArticle(StatusArticle statusArticle);
+
 }

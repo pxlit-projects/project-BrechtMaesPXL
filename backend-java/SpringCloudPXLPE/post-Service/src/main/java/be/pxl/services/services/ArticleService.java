@@ -22,8 +22,14 @@ public class ArticleService implements IArticleService{
 
     @Override
     public List<ArticleResponse> getAllArticles() {
-         List<Article> articleq = articleRepository.findAll();
-        return articleq.stream().map(this::mapToArticleResponse).toList();
+         List<Article> article = articleRepository.findAll();
+        return article.stream().map(this::mapToArticleResponse).toList();
+    }
+
+    @Override
+    public List<ArticleResponse> getAllArticlesByStatus(String status) {
+        List<Article> articles = articleRepository.findAllByStatusArticle(mapToStatusArticle(status));
+        return articles.stream().map(this::mapToArticleResponse).toList();
     }
 
     @Override
@@ -65,6 +71,9 @@ public class ArticleService implements IArticleService{
                 .editorsId(article.getEditorsId())
                 .title(article.getTitle())
                 .content(article.getContent())
+                .approvedBy(article.getApprovedBy())
+                .createdAt(article.getCreatedAt())
+                .id(article.getId().toString())
                 .build();
     }
     private StatusArticle mapToStatusArticle(String statusArticle) {
