@@ -1,13 +1,10 @@
 import {Component, EventEmitter, inject, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Customer} from "../../../shared/models/customer.model";
-import {CustomerService} from "../../../shared/services/customer.service";
 import {Router} from "@angular/router";
 import {ArticleService} from "../../../shared/services/article.service";
-import {User} from "../../../shared/models/user.model";
 import {CookieServicing} from "../../../shared/services/cookie.service";
-import theme from "tailwindcss/defaultTheme";
 import {Article} from "../../../shared/models/Article.model";
+import {ArticleTest} from "../../../shared/models/ArticleTest.model";
 
 @Component({
   selector: 'app-add-article',
@@ -35,7 +32,7 @@ export class AddArticleComponent {
   onSubmit() {
     this.successMessage = null;
     this.errorMessage = null;
-    const newArticle: Article = {
+    const newArticle: ArticleTest = {
       ...this.articleForm.value,
       editorsId: CookieServicing.getCookie()?.id
 

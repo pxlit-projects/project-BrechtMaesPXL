@@ -1,3 +1,4 @@
+
 server:
   port: 8095
 logging:
@@ -5,6 +6,7 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
 spring:
   cloud:
+
     client:
       hostname: localhost
     gateway:
@@ -12,13 +14,18 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins:
-              - "localhost"
               - "http://localhost:4200"
-              - "*"
             allowedMethods:
-              - "*"
+              - "GET"
+              - "POST"
+              - "PUT"
+              - "DELETE"
+              - "OPTIONS"
             allowedHeaders:
-              - "*"
+              - "Content-Type"
+              - "Authorization"
+              - "X-Requested-With"
+              - "Accept"
             allowCredentials: true
       discovery:
         locator:

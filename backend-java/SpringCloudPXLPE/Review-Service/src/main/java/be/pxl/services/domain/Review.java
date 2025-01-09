@@ -18,9 +18,10 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long editorsId;
+    private Type type;
+    private String editorsId;
     private Long postId;
     private String title;
-    private Long content;
+    private String content;
 
 }

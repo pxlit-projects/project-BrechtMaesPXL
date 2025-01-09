@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin()
 @RestController
 @RequestMapping("/api/comment")
 @RequiredArgsConstructor
@@ -23,13 +24,13 @@ public class CommentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addArticle(@RequestBody CommentRequest commentRequest){
+
         commentService.addComment(commentRequest);
     }
 
-//    @PutMapping("/{id}")
-//    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-//    public void updateArticle(@PathVariable Long id, @RequestBody CommentRequest commentRequest){
-//        commentService.updateComment(id, commentRequest);
-//    }
+    @GetMapping("/post/{id}")
+    public ResponseEntity getArticleByPostId(@PathVariable Long id){
+        return new ResponseEntity(commentService.getCommentByPostId(id), HttpStatus.OK);
+    }
 
 }

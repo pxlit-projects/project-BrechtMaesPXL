@@ -1,24 +1,31 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {Filter} from "../../../shared/models/filter.model";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // Voor native datumondersteuning
+import { Filter } from '../../../shared/models/filter.model';
 
 @Component({
   selector: 'app-filter',
-  imports: [FormsModule],
-  templateUrl: './filter.component.html',
   standalone: true,
-  styleUrl: './filter.component.css'
+  templateUrl: './filter.component.html',
+  styleUrls: ['./filter.component.css'],
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
 })
 export class FilterComponent {
-  filter: Filter = { name: '', city: '', vat: undefined };
+  filter: Filter = { content: '', editorsId: '', date: null };
 
   @Output() filterChanged = new EventEmitter<Filter>();
-  onSubmit(form: any) {
-    if (form.valid) {
-      this.filter.name = this.filter.name.toLowerCase();
-      this.filter.city = this.filter.city.toLowerCase();
-      this.filterChanged.emit(this.filter);
-    }
-  }
 
+  onSubmit(form: any): void {
+    if (form.valid) {
+      this.filterChanged.emit(this.filter);
+    }  }
 }

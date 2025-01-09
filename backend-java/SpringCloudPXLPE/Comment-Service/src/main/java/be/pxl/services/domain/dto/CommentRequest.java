@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentRequest {
 
-    private Long editorsId;
-
-    private String title;
+    private String editorsId;
+    private Long postId;
     private String content;
 }

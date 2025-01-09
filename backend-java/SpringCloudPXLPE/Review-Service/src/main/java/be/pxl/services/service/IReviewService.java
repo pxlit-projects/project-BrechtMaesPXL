@@ -9,6 +9,9 @@ import java.util.List;
 @Service
 public interface IReviewService {
     List<ReviewResponse> getAllReview();
+    List<ReviewResponse> getReviewOfPost( Long postId);
+
+    void deleteReview(Long id);
 
     void addReview(ReviewRequest reviewRequest);
 }

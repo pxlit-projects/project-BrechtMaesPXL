@@ -1,0 +1,8 @@
+<div class="md:container md:mx-auto container mx-auto mt-10">
+  <div class="grid grid-cols-3 gap-6">
+    @for(item of reviewModels; track item.title){
+      <app-review-artilce-item [review]="item" ></app-review-artilce-item>
+    }
+
+  </div>
+</div>

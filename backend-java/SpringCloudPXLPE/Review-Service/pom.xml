@@ -73,6 +73,12 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
             <version>2.2.2.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>be.pxl.services</groupId>
+            <artifactId>post-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 </project>

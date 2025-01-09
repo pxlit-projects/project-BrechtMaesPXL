@@ -7,8 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewRequest {
-    private Long editorsId;
-    private Long postId;
+    private String editorsId;
+    private long postId;
+    private String type;
     private String title;
-    private Long content;
+    private String content;
 }

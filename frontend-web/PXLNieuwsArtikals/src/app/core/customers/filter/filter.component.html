@@ -2,10 +2,43 @@
   <div class="flex items-center">
     <form #filterForm="ngForm" (ngSubmit)="onSubmit(filterForm)">
       <div class="flex items-center">
-        <input type="text" class="px-4 py-2 mr-2" placeholder="Search by Name" name="name" [(ngModel)]="filter.name">
-        <input type="text" class="px-4 py-2 mr-2" placeholder="Search by City" name="city" [(ngModel)]="filter.city">
-        <input type="text" class="px-4 py-2" placeholder="Search by VAT" name="vat" [(ngModel)]="filter.vat">
-        <button type="submit" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Search</button>
+        <input
+          type="text"
+          class="px-4 py-2 mr-2"
+          placeholder="Search by content"
+          name="content"
+          [(ngModel)]="filter.content"
+        />
+
+        <input
+          type="text"
+          class="px-4 py-2 mr-2"
+          placeholder="Search by editor's id"
+          name="editorsId"
+          [(ngModel)]="filter.editorsId"
+        />
+
+        <mat-form-field appearance="fill" class="mr-2">
+          <mat-label>Select Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            name="date"
+            [(ngModel)]="filter.date"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button
+          type="submit"
+          class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+        >
+          Search
+        </button>
       </div>
     </form>
   </div>

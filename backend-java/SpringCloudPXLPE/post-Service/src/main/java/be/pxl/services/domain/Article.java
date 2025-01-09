@@ -32,5 +32,6 @@ public class Article {
     @ElementCollection
     private List<String> approvedBy;
 
-
+    @ElementCollection
+    private List<String> rejectedBy;
 }

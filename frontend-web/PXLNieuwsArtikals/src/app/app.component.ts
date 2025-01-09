@@ -5,7 +5,6 @@ import { Customer } from './shared/models/customer.model';
 import {NavbarComponent} from "./core/navbar/navbar.component";
 import {ArticleListComponent} from "./core/customers/article-list/article-list.component";
 import {CookieServicing} from "./shared/services/cookie.service";
-import {CustomerService} from "./shared/services/customer.service";
 import {CookieService} from "ngx-cookie-service";
 
 @Component({

@@ -1,0 +1,25 @@
+<div class="mt-4">
+  <ul class="list-disc pl-6 space-y-2">
+    <!-- Display existing comments -->
+    @for(comment of filteredData; track comment) {
+      <li class="bg-gray-100 p-2 rounded">
+        <p class="text-sm text-gray-700">{{ comment.editorsId }}</p>
+        <p class="text-xs text-gray-500">- {{ comment.content }}</p>
+      </li>
+    }
+
+    <div class="mt-4">
+      <input
+        [(ngModel)]="newComments[articleId]"
+        type="text"
+        placeholder="Add a comment"
+        class="w-full p-2 border rounded"
+      />
+      <button
+        class="bg-green-500 text-white px-4 py-2 mt-2 rounded hover:bg-green-600"
+        (click)="addComment()">
+        Add Comment
+      </button>
+    </div>
+  </ul>
+</div>

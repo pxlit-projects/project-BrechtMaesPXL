@@ -1,0 +1,48 @@
+@if (article$ | async ) {
+  <button
+    class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2"
+    (click)="markForReview()"
+  >
+    Mark for Review
+  </button>
+  <button
+    class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2"
+    (click)="markForDraft()"
+  >
+    Mark as Draft
+  </button>
+  <button
+    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2"
+    [disabled]="!canPublish()"
+    (click)="publishArticle()"
+  >
+    Publish Article
+  </button>
+  <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">
+        <input [(ngModel)]="article.title" class="w-full p-2 border rounded" />
+      </div>
+
+      <p class="text-gray-700 mb-2">
+        <textarea [(ngModel)]="article.content" class="w-full p-2 border rounded" rows="4"></textarea>
+      </p>
+
+      <p class="text-gray-700 mb-2">ID: {{ article.id }}</p>
+      <p class="text-gray-700 mb-2">Editors ID: {{ article.editorsId }}</p>
+      <p class="text-gray-700 mb-2">Date: {{ article.createdAt }}</p>
+      <p class="text-gray-700 mb-2">Status: {{ article.statusArticle }}</p>
+
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        (click)="saveChanges()"
+      >
+        Save changes
+      </button>
+
+
+    </div>
+  </div>
+
+  <app-review-artilce-list [articleId]="article.id"></app-review-artilce-list>
+}

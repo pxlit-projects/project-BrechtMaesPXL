@@ -1,5 +1,6 @@
 package be.pxl.services.domain.DTO;
 
+import be.pxl.services.domain.Type;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewResponse {
-    private Long id;
-    private Long editorsId;
-    private Long postId;
+    private String id;
+    private Type type;
+    private String editorsId;
+    private String postId;
     private String title;
-    private Long content;
+    private String content;
 }

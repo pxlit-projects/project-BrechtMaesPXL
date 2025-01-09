@@ -1,5 +1,5 @@
 export interface Filter{
-  name: string;
-  city: string;
-  vat: number | undefined;
+  content: string | null;
+  editorsId: string | null;
+  date: Date | null;
 }

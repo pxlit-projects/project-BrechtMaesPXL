@@ -18,5 +18,8 @@ public class ArticleResponse {
     private LocalDate createdAt;
     private String title;
     private String content;
+    private String statusArticle;
     private List<String> approvedBy;
+    private List<String> rejectedBy;
+
 }

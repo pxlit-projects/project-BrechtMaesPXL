@@ -10,12 +10,18 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitConfig {
 
     public static final String QUEUE_NAME = "messaging-queue";
+    public static final String REJECTER = "reject-queue";
+
     public static final String EXCHANGE_NAME = "messaging-exchange";
     public static final String ROUTING_KEY = "messaging.routing.key";
 
     @Bean
     public Queue queueName() {
         return new Queue(QUEUE_NAME, true);
+    }
+    @Bean
+    public Queue rejected() {
+        return new Queue(REJECTER, true);
     }
 
     @Bean

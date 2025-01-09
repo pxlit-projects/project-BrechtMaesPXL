@@ -1,9 +1,23 @@
-<!--<app-filter (filterChanged)="handleFilter($event)"></app-filter>-->
+<app-filter (filterChanged)="handleFilter($event)"></app-filter>
+
 <div class="md:container md:mx-auto container mx-auto mt-10">
   <div class="grid grid-cols-3 gap-6">
-    @for(item of filteredData; track item.title){
-      <app-article-item [article]="item" ></app-article-item>
-    }
+    @for(item of filteredPosts; track item.title) {
+      <div class="border p-4 rounded shadow">
+        <app-review-artilce-comment-item [article]="item"></app-review-artilce-comment-item>
 
+        <!-- Show Comments Button -->
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-blue-600"
+          (click)="toggleComments(item.title)">
+          {{ showComments[item.title] ? 'Hide Comments' : 'Show Comments' }}
+        </button>
+
+        @if (showComments[item.title]) {
+          <app-comment-list [articleId]="item.id"></app-comment-list>
+
+        }
+      </div>
+    }
   </div>
 </div>

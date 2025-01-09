@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin()
 @RestController
 @RequestMapping("/api/article")
 @RequiredArgsConstructor
@@ -26,36 +25,38 @@ public class ArticleController {
     public ResponseEntity<List<ArticleResponse>> getArticle(){
         return new ResponseEntity<List<ArticleResponse>>(articleService.getAllArticles(), HttpStatus.OK);
     }
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long id){
+        return new ResponseEntity<ArticleResponse>(articleService.getArticleById(id), HttpStatus.OK);
+    }
     @GetMapping("/{status}")
     public ResponseEntity<List<ArticleResponse>> getArticleByStatus(@PathVariable String status){
         return new ResponseEntity<List<ArticleResponse>>(articleService.getAllArticlesByStatus(status), HttpStatus.OK);
     }
+    @GetMapping("/{status}/{editorsId}")
+    public ResponseEntity<List<ArticleResponse>> getArticleByStatus(@PathVariable String status, @PathVariable String editorsId){
+        return new ResponseEntity<List<ArticleResponse>>(articleService.getAllArticlesOfEditorByStatus(status, editorsId), HttpStatus.OK);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addArticle(@RequestBody ArticleRequest articleRequest , @RequestHeader String role){
+    public ResponseEntity<ArticleResponse>  addArticle(@RequestBody ArticleRequest articleRequest , @RequestHeader String role){
 
         articleService.checkIfRoleIsEditor(role);
-        articleService.addArticle(articleRequest);
+        ArticleResponse response = articleService.addArticle(articleRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @PutMapping("/update/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateArticle(@PathVariable Long id, @RequestBody ArticleRequest articleRequest , @RequestHeader String role){
         articleService.checkIfRoleIsEditor(role);
         articleService.updateArticle(id, articleRequest);
     }
-    @PutMapping("/{id}/status")
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public void changeStatus(@PathVariable Long id, @RequestBody String status){
-        articleService.changeStatus(id, status);
+    @PutMapping("/{id}/status/{status}")
+    public ResponseEntity<ArticleResponse>  changeStatus(@PathVariable Long id, @PathVariable String status){
+        ArticleResponse articleResponse = articleService.changeStatus(id, status);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(articleResponse);
     }
-    @GetMapping("/filter")
-    public ResponseEntity<List<ArticleResponse>> getArticleWithFilter(
-            @RequestParam(required = false) String content,
-            @RequestParam(required = false) Long editorsId,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        List<ArticleResponse> filteredArticles = articleService.getArticlesWithFilter(content, editorsId, date);
-        return new ResponseEntity<>(filteredArticles, HttpStatus.OK);
-    }
+
 }

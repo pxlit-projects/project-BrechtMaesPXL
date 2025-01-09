@@ -1,0 +1,11 @@
+<div [ngClass]="{'border border-2 border-yellow-500': article}" class="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md">
+  <!--  <img class="w-full h-36 object-cover" [src]="customer.avatar" alt="Card image">-->
+  <div class="p-6">
+    <h2 class="font-bold text-xl mb-2">{{article.title}}</h2>
+    <p class="text-gray-700 text-base">
+      {{article.content + "(" + article.editorsId + ")"}}
+    </p>
+
+
+  </div>
+</div>

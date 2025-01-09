@@ -1,9 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Article} from "../models/Article.model";
-import {map, Observable} from "rxjs";
+import {catchError, empty, map, Observable, throwError} from "rxjs";
 import {ArticleResponse} from "../models/ArticleRsponse.model";
+import {Filter} from "../models/filter.model";
+import {ArticleTest} from "../models/ArticleTest.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +14,22 @@ export class ArticleService {
   api: string = environment.backendUrl + "post/api/article";
   http: HttpClient = inject(HttpClient);
 
-  addArticle(article: Article, role: string): Observable<Object> {
-    const headers = { role }; // Simplified object
+  addArticle(article: ArticleTest, role: string): Observable<Object> {
+    const headers = { role };
     console.log("Sending article:", article);
 
     return this.http.post(`${this.api}`, article, {
       headers: {
         role,
-        'Content-Type': 'application/json' // Explicit content type
+        'Content-Type': 'application/json'
       },
-      withCredentials: true // Ensure credentials are sent if needed
-    });
+      withCredentials: true
+    }).pipe(
+      catchError(this.handleError)
+
+    );
   }
+
 
   getArticlesByStatus(status: string): Observable<ArticleResponse[]> {
     console.log("Requesting articles by status: " + status);
@@ -41,20 +47,67 @@ export class ArticleService {
           );
         });
       })
+    ).pipe(
+     catchError(this.handleError)
+
+   );
+  }
+  getArticlesOfEditorByStatus( status: string, editorId: string ): Observable<ArticleResponse[]> {
+    return this.http.get<ArticleResponse[]>(`${this.api}/${status}/${editorId}`).pipe(
+      map((response: any[]) => {
+        return response.map(article => {
+          return new ArticleResponse(
+            article.id,
+            article.title,
+            article.content,
+            article.statusArticle,
+            article.editorsId,
+            article.createdAt,
+            article.approvedBy
+          );
+        });
+      })
+    ).pipe(
+      catchError(this.handleError)
+
+    );
+  }
+  getArtilceById(id: string): Observable<ArticleResponse> {
+    return this.http.get<ArticleResponse>(`${this.api}/id/${id}`).pipe(
+      catchError(this.handleError)
+
     );
   }
 
-  updateArticle(id: number, article: Article, role: string): Observable<void> {
+  updateArticle(article: ArticleResponse, role:string): Observable<void> {
     const headers = { role };
-    return this.http.put<void>(`${this.api}/${id}`, article, { headers });
+    return this.http.put<void>(`${this.api}/${article.id}`, article, { headers }).pipe(
+      catchError(this.handleError)
+
+    );
+  }
+  changeArticleStatus(id: number, status: string): Observable<ArticleResponse> {
+    return this.http.put<ArticleResponse>(`${this.api}/${id}/status/${status}`, null, {
+      withCredentials: false,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  changeArticleStatus(id: number, status: string): Observable<void> {
-    return this.http.put<void>(`${this.api}/${id}/status`, status);
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage: string = "Unknown error";
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `${error.error.message }`;
+    } else {
+      errorMessage = `unexpected error: ${error.message}`;
+
+    }
+    return throwError(() => new Error(errorMessage));
   }
 
-  getArticlesWithFilter(content?: string, editorsId?: number, date?: string): Observable<Article[]> {
-    const params: any = { content, editorsId, date };
-    return this.http.get<Article[]>(`${this.api}/filter`, { params });
-  }
+
+
 }

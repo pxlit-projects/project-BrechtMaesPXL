@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+@CrossOrigin()
 @RestController
 @RequestMapping("/api/review")
 @RequiredArgsConstructor
@@ -17,6 +19,15 @@ public class ReviewController {
     @GetMapping
     public ResponseEntity getReview(){
         return new ResponseEntity(reviewService.getAllReview(), HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteReview(@PathVariable Long id){
+        reviewService.deleteReview(id);
+    }
+
+    @GetMapping("/post/{postId}")
+    public ResponseEntity getReviewOfPost(@PathVariable Long postId){
+        return new ResponseEntity(reviewService.getReviewOfPost(postId), HttpStatus.OK);
     }
 
     @PostMapping
