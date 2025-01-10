@@ -34,6 +34,7 @@ public class CommentService implements ICommentService {
                 .editorsId(comment.getEditorsId())
                 .content(comment.getContent())
                 .postId(comment.getPostId())
+                .id(comment.getId().toString())
                 .build();
     }
     @Override

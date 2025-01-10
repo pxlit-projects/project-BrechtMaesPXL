@@ -2,12 +2,49 @@
   <ul class="list-disc pl-6 space-y-2">
     <!-- Display existing comments -->
     @for(comment of filteredData; track comment) {
-      <li class="bg-gray-100 p-2 rounded">
-        <p class="text-sm text-gray-700">{{ comment.editorsId }}</p>
-        <p class="text-xs text-gray-500">- {{ comment.content }}</p>
+      <li class="bg-gray-100 p-2 rounded flex justify-between items-center">
+        <div>
+          <p class="text-sm text-gray-700">{{ comment.editorsId }}</p>
+          <!-- Display comment or edit field -->
+          <div *ngIf="editingCommentId !== comment.id; else editField">
+            <p class="text-xs text-gray-500">- {{ comment.content }}</p>
+          </div>
+          <ng-template #editField>
+            <input
+              [(ngModel)]="editCommentContent"
+              type="text"
+              class="w-full p-2 border rounded"
+            />
+          </ng-template>
+        </div>
+
+        <!-- Buttons for edit and delete -->
+        <div *ngIf="comment.editorsId === user?.id" class="flex items-center space-x-2">
+          <button
+            *ngIf="editingCommentId !== comment.id"
+            class="text-blue-500 hover:text-blue-700"
+            (click)="startEditing(comment)"
+          >
+            ✏️
+          </button>
+          <button
+            *ngIf="editingCommentId === comment.id"
+            class="text-green-500 hover:text-green-700"
+            (click)="saveEdit(comment)"
+          >
+            ✔️
+          </button>
+          <button
+            class="text-red-500 hover:text-red-700"
+            (click)="deleteComment(comment.id)"
+          >
+            🗑️
+          </button>
+        </div>
       </li>
     }
 
+    <!-- Input for adding a new comment -->
     <div class="mt-4">
       <input
         [(ngModel)]="newComments[articleId]"
@@ -17,7 +54,8 @@
       />
       <button
         class="bg-green-500 text-white px-4 py-2 mt-2 rounded hover:bg-green-600"
-        (click)="addComment()">
+        (click)="addComment()"
+      >
         Add Comment
       </button>
     </div>

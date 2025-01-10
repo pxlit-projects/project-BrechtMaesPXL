@@ -20,4 +20,12 @@ export class CommentService {
   addComment(comment: Comment){
     return this.http.post<Comment>(`${this.api}`, comment);
   }
+
+  updateComment(comment: Comment) {
+    return this.http.put<Comment>(`${this.api}/${comment.Id}`, comment);
+  }
+
+  deleteComment(commentId: number) {
+    return this.http.delete(`${this.api}/${commentId}`);
+  }
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentResponse {
-
+    private String id;
     private String editorsId;
     private Long postId;
     private String content;

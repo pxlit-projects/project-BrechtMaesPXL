@@ -15,6 +15,7 @@ spring:
           '[/**]':
             allowedOrigins:
               - "http://localhost:4200"
+              - "*"
             allowedMethods:
               - "GET"
               - "POST"
@@ -26,7 +27,7 @@ spring:
               - "Authorization"
               - "X-Requested-With"
               - "Accept"
-            allowCredentials: true
+            allowCredentials: false
       discovery:
         locator:
           enabled: true
