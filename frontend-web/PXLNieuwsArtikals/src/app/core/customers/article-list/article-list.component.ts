@@ -43,7 +43,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.articleService.getArticlesByStatus("DRAFT").subscribe({
+    this.articleService.getArticlesByStatus("PUBLISHED").subscribe({
       next: (response) => {
         this.articles = response;
         this.filteredPosts = this.articles;

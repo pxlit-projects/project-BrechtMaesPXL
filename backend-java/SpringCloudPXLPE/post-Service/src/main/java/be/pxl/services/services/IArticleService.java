@@ -24,4 +24,6 @@ public interface IArticleService {
     ArticleResponse changeStatus(Long id, String status);
 
     void checkIfRoleIsEditor(String role);
+
+    void resetNotification(Long id);
 }

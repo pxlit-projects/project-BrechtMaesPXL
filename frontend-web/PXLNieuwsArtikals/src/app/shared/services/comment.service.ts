@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ReviewModel} from "../models/review.model";
 import {Comment} from "../models/Comment.model";
+import {RequestComment} from "../models/RequestComment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,12 @@ export class CommentService {
     return this.http.get<Comment[]>(`${this.api}/post/${id}`);
   }
   addComment(comment: Comment){
-    return this.http.post<Comment>(`${this.api}`, comment);
+    var newRequestComment: RequestComment  = new RequestComment(comment.content,comment.editorsId, comment.articleId )
+    return this.http.post<Comment>(`${this.api}`, newRequestComment);
   }
 
   updateComment(comment: Comment) {
-    return this.http.put<Comment>(`${this.api}/${comment.Id}`, comment);
+    return this.http.put<Comment>(`${this.api}/${comment.id}`, comment);
   }
 
   deleteComment(commentId: number) {

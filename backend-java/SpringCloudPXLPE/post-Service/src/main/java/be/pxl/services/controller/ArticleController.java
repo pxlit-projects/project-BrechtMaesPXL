@@ -58,5 +58,9 @@ public class ArticleController {
         ArticleResponse articleResponse = articleService.changeStatus(id, status);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(articleResponse);
     }
+    @PutMapping("/Notif/{id}")
+    public void resetNotification(@PathVariable Long id){
+        articleService.resetNotification(id);
+    }
 
 }

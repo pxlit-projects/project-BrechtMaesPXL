@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: 'customers', component: ArticleListComponent },
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
   { path: 'customer/:id', component: ArticleDetailComponent,
-    canDeactivate: [confirmLeaveGuard],
+ //   canDeactivate: [confirmLeaveGuard],
     canActivate: [RoleGuard],
     data: { role: 'EDITOR' },
   },

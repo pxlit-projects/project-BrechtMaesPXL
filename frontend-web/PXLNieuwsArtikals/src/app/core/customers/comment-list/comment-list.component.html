@@ -6,58 +6,61 @@
         <div>
           <p class="text-sm text-gray-700">{{ comment.editorsId }}</p>
           <!-- Display comment or edit field -->
-          <div *ngIf="editingCommentId !== comment.id; else editField">
-            <p class="text-xs text-gray-500">- {{ comment.content }}</p>
-          </div>
-          <ng-template #editField>
+          @if (editingCommentId !== comment.id) {
+            <div>
+              <p class="text-xs text-gray-500">- {{ comment.content }}</p>
+            </div>
+          } @else {
             <input
               [(ngModel)]="editCommentContent"
               type="text"
               class="w-full p-2 border rounded"
-            />
-          </ng-template>
-        </div>
+              />
+            }
+          </div>
 
-        <!-- Buttons for edit and delete -->
-        <div *ngIf="comment.editorsId === user?.id" class="flex items-center space-x-2">
+          @if (user?.name == comment.editorsId) {
+            <div class="flex items-center space-x-2">
+              @if (editingCommentId != comment.id) {
+                <button
+                  class="text-blue-500 hover:text-blue-700"
+                  (click)="startEditing(comment)"
+                  >
+                  ✏️
+                </button>
+              }
+              @if (editingCommentId == comment.id) {
+                <button
+                  class="text-green-500 hover:text-green-700"
+                  (click)="saveEdit(comment)"
+                  >
+                  ✔️
+                </button>
+              }
+              <button
+                class="text-red-500 hover:text-red-700"
+                (click)="deleteComment(comment.id)"
+                >
+                🗑️
+              </button>
+            </div>
+          }
+        </li>
+      }
+
+      <div class="mt-4">
+        <input
+          [(ngModel)]="newComments[articleId]"
+          type="text"
+          placeholder="Add a comment"
+          class="w-full p-2 border rounded"
+          />
           <button
-            *ngIf="editingCommentId !== comment.id"
-            class="text-blue-500 hover:text-blue-700"
-            (click)="startEditing(comment)"
-          >
-            ✏️
-          </button>
-          <button
-            *ngIf="editingCommentId === comment.id"
-            class="text-green-500 hover:text-green-700"
-            (click)="saveEdit(comment)"
-          >
-            ✔️
-          </button>
-          <button
-            class="text-red-500 hover:text-red-700"
-            (click)="deleteComment(comment.id)"
-          >
-            🗑️
+            class="bg-green-500 text-white px-4 py-2 mt-2 rounded hover:bg-green-600"
+            (click)="addComment()"
+            >
+            Add Comment
           </button>
         </div>
-      </li>
-    }
-
-    <!-- Input for adding a new comment -->
-    <div class="mt-4">
-      <input
-        [(ngModel)]="newComments[articleId]"
-        type="text"
-        placeholder="Add a comment"
-        class="w-full p-2 border rounded"
-      />
-      <button
-        class="bg-green-500 text-white px-4 py-2 mt-2 rounded hover:bg-green-600"
-        (click)="addComment()"
-      >
-        Add Comment
-      </button>
+      </ul>
     </div>
-  </ul>
-</div>

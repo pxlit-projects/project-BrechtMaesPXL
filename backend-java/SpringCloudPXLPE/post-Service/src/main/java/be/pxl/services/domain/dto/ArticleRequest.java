@@ -16,5 +16,5 @@ public class ArticleRequest {
     private String title;
     private String content;
 
-    private String statusArticle;
+    private String status;
 }

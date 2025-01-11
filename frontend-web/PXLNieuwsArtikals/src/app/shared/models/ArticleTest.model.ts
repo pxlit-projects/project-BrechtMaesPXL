@@ -1,14 +1,14 @@
 export class ArticleTest {
 
+  editorsId: string;
   title: string;
   content: string;
-  statusArticle: string;
-  editorsId:string;
+  statusArticle:string;
 
-  constructor(title: string, content: string, status: string, editorsId: string) {
+  constructor(title: string, content: string, statusArticle: string, editorsId: string) {
     this.title = title;
     this.content = content;
-    this.statusArticle = status;
+    this.statusArticle = statusArticle;
     this.editorsId = editorsId;
   }
 }

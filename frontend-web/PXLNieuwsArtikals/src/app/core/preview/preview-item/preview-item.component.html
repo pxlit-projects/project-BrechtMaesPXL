@@ -5,9 +5,61 @@
     <p class="text-gray-700 text-base">
       {{article.content + "(" + article.editorsId + ")"}}
     </p>
-    <button [routerLink]="['/customer',article.id]" routerLinkActive="router-link-active" class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded">
-      Details
-    </button>
-
+<!--    <button [routerLink]="['/customer',article.id]" routerLinkActive="router-link-active" class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded">-->
+<!--      Details-->
+<!--    </button>-->
+    <div class="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md p-6">
+      <form (ngSubmit)="onSubmit()" #articleForm="ngForm">
+        <div class="mb-4">
+          <label for="title" class="block text-gray-700 font-bold mb-2">Title:</label>
+          <input
+            id="title"
+            name="title"
+            [(ngModel)]="formData.title"
+            required
+            type="text"
+            class="w-full p-2 border rounded"
+            placeholder="Enter title"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="content" class="block text-gray-700 font-bold mb-2">Content:</label>
+          <textarea
+            id="content"
+            name="content"
+            [(ngModel)]="formData.content"
+            required
+            rows="4"
+            class="w-full p-2 border rounded"
+            placeholder="Enter content"
+          ></textarea>
+        </div>
+        <div class="flex justify-between mb-4">
+          <button
+            type="button"
+            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            (click)="setStatus('ACCEPTED')"
+            [ngClass]="{'opacity-50': formData.status === 'ACCEPTED'}"
+          >
+            ACCEPTED
+          </button>
+          <button
+            type="button"
+            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            (click)="setStatus('REJECTED')"
+            [ngClass]="{'opacity-50': formData.status === 'REJECTED'}"
+          >
+            REJECTED
+          </button>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          [disabled]="!articleForm.form.valid || !formData.status"
+        >
+          SEND
+        </button>
+      </form>
+    </div>
   </div>
 </div>

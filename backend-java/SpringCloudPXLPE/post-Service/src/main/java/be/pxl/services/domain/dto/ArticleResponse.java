@@ -21,5 +21,6 @@ public class ArticleResponse {
     private String statusArticle;
     private List<String> approvedBy;
     private List<String> rejectedBy;
+    private int Notification;
 
 }

@@ -1,0 +1,4 @@
+button:disabled {
+  cursor: not-allowed;
+  background-color: #d1d5db; /* Tailwind gray-300 */
+}

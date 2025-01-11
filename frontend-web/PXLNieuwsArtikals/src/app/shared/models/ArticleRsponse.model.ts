@@ -6,10 +6,22 @@ export class ArticleResponse {
   content: string;
   statusArticle: string;
   createdAt: string;
-  approvedBy: String[];
+  approvedBy: string[];
+  rejectedBy: string[];
+  notification: number;
   editorsId:string;
 
-  constructor(id: string,title: string, content: string, status: string, editorsId: string, createdAt: string, approvedBy: String[]) {
+  constructor(
+    id: string,
+    title: string,
+    content: string,
+    status: string,
+    editorsId: string,
+    createdAt: string,
+    approvedBy: string[],
+    rejectedBy: string[],
+    notification: number)
+  {
     this.title = title;
     this.content = content;
     this.statusArticle = status;
@@ -17,5 +29,7 @@ export class ArticleResponse {
     this.createdAt = createdAt;
     this.approvedBy = approvedBy;
     this.id = id;
+    this.rejectedBy = rejectedBy;
+    this.notification = notification;
   }
 }

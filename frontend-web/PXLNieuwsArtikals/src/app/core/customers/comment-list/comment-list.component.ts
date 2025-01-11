@@ -5,6 +5,7 @@ import { CookieServicing } from "../../../shared/services/cookie.service";
 import { CommentService } from "../../../shared/services/comment.service";
 import { Comment } from "../../../shared/models/Comment.model";
 import { FormsModule } from "@angular/forms";
+import {RequestComment} from "../../../shared/models/RequestComment";
 
 @Component({
   selector: 'app-comment-list',

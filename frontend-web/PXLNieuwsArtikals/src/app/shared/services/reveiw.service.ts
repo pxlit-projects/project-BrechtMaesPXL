@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ReviewModel} from "../models/review.model";
+import {RequestComment} from "../models/RequestComment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,9 @@ export class ReveiwService {
   getReviews(id: string): Observable<ReviewModel[]>
   {
     return this.http.get<ReviewModel[]>(`${this.api}/post/${id}`);
+  }
+  addReview(reviewRequest: RequestComment)
+  {
+    return this.http.post<ReviewModel>(`${this.api}`, reviewRequest);
   }
 }

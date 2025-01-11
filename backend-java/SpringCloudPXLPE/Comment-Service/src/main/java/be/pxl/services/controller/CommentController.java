@@ -17,27 +17,27 @@ public class CommentController {
     private final ICommentService commentService;
 
     @GetMapping
-    public ResponseEntity getArticle(){
+    public ResponseEntity getComment(){
         return new ResponseEntity(commentService.getAllComment(), HttpStatus.OK);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addArticle(@RequestBody CommentRequest commentRequest){
+    public void addComment(@RequestBody CommentRequest commentRequest){
 
         commentService.addComment(commentRequest);
     }
 
     @GetMapping("/post/{id}")
-    public ResponseEntity getArticleByPostId(@PathVariable Long id){
+    public ResponseEntity getCommentByPostId(@PathVariable Long id){
         return new ResponseEntity(commentService.getCommentByPostId(id), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public void deleteArticle(@PathVariable Long id){
+    public void deleteComment(@PathVariable Long id){
         commentService.deleteComment(id);
     }
     @PutMapping("/{id}")
-    public void updateArticle(@PathVariable Long id, @RequestBody CommentRequest commentRequest){
+    public void updateComment(@PathVariable Long id, @RequestBody CommentRequest commentRequest){
         commentService.UpdateComment(id, commentRequest);
     }
 

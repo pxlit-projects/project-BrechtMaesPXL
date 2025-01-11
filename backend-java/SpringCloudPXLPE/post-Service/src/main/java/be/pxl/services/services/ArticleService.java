@@ -52,10 +52,11 @@ public class ArticleService implements IArticleService{
                 .editorsId(articleRequest.getEditorsId())
                 .title(articleRequest.getTitle())
                 .content(articleRequest.getContent())
-                .statusArticle(mapToStatusArticle(articleRequest.getStatusArticle()))
+                .statusArticle(mapToStatusArticle(articleRequest.getStatus()))
                 .createdAt(LocalDate.now())
                 .approvedBy(List.of())
                 .rejectedBy(List.of())
+                .Notification(0)
                 .build();
         articleRepository.save(article);
         return mapToArticleResponse(article);
@@ -70,6 +71,7 @@ public class ArticleService implements IArticleService{
         List<String> approvedBy = article.getApprovedBy();
         approvedBy.add(reviewMessage.getEditorId());
         article.setApprovedBy(approvedBy);
+        article.setNotification(article.getNotification() + 1);
         articleRepository.save(article);
     }
 
@@ -81,6 +83,7 @@ public class ArticleService implements IArticleService{
         List<String> rejectedBy = article.getRejectedBy();
         rejectedBy.add(reviewMessage.getEditorId());
         article.setRejectedBy(rejectedBy);
+        article.setNotification(article.getNotification() + 1);
         articleRepository.save(article);
     }
 
@@ -120,6 +123,7 @@ public class ArticleService implements IArticleService{
                 .statusArticle(article.getStatusArticle() != null
                         ? mapStatusArticleToString(article.getStatusArticle())
                         : "UNKNOWN")
+                .Notification(article.getNotification())
                 .build();
     }
 
@@ -150,6 +154,13 @@ public class ArticleService implements IArticleService{
         if (!role.equals("EDITOR")) {
             throw new IllegalArgumentException("Role is not editor");
         }
+    }
+
+    @Override
+    public void resetNotification(Long id) {
+        Article article = articleRepository.findById(id).orElseThrow();
+        article.setNotification(0);
+        articleRepository.save(article);
     }
 
 

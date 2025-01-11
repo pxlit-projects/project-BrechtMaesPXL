@@ -16,15 +16,9 @@ export class ArticleService {
 
   addArticle(article: ArticleTest, role: string): Observable<Object> {
     const headers = { role };
-    console.log("Sending article:", article);
+    console.log("Sending article:", headers);
 
-    return this.http.post(`${this.api}`, article, {
-      headers: {
-        role,
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true
-    }).pipe(
+    return this.http.post(`${this.api}`, article, {headers}).pipe(
       catchError(this.handleError)
 
     );
@@ -43,7 +37,9 @@ export class ArticleService {
             article.statusArticle,
             article.editorsId,
             article.createdAt,
-            article.approvedBy
+            article.approvedBy,
+            article.rejectedBy,
+            article.notification
           );
         });
       })
@@ -63,7 +59,9 @@ export class ArticleService {
             article.statusArticle,
             article.editorsId,
             article.createdAt,
-            article.approvedBy
+            article.approvedBy,
+            article.rejectedBy,
+            article.notification
           );
         });
       })
@@ -81,7 +79,7 @@ export class ArticleService {
 
   updateArticle(article: ArticleResponse, role:string): Observable<void> {
     const headers = { role };
-    return this.http.put<void>(`${this.api}/${article.id}`, article, { headers }).pipe(
+    return this.http.put<void>(`${this.api}/update/${article.id}`, article, { headers }).pipe(
       catchError(this.handleError)
 
     );
@@ -97,6 +95,10 @@ export class ArticleService {
     );
   }
 
+  updateNotification(id: number)
+  {
+    return this.http.put(`${this.api}/Notif/${id}`, {})
+  }
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "Unknown error";
     if (error.error instanceof ErrorEvent) {

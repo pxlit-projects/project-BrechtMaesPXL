@@ -1,14 +1,13 @@
 export class Comment {
-  Id?: string;
-  editorsId: string;
-  postId: number;
+  id: number;
   content: string;
+  editorsId: string;
+  articleId: number;
 
-
-  constructor( content: string, editorsId: string, postId: number, id? :string) {
+  constructor(content: string, editorsId: string, articleId: number, id?: number) {
+    this.id = id || 0;
     this.content = content;
-    this.postId = postId;
     this.editorsId = editorsId;
-    this.Id = id
+    this.articleId = articleId;
   }
 }

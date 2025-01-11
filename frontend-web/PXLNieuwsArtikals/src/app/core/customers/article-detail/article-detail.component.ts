@@ -66,12 +66,15 @@ export class ArticleDetailComponent  implements OnDestroy, OnInit {
   }
 
   publishArticle(): void {
-    if (this.article.statusArticle === 'ACCEPTED') {
-      this.article.statusArticle = 'PUBLISHED';
-    }
+    this.articleService.changeArticleStatus(parseInt(this.article.id), 'PUBLISHED').subscribe({
+      next: response =>{
+        this.article.statusArticle = 'PUBLISHED';
+      }
+
+    })
   }
 
   canPublish(): boolean {
-    return this.article.statusArticle === 'ACCEPTED';
+    return this.article.approvedBy.length > 0;
   }
 }

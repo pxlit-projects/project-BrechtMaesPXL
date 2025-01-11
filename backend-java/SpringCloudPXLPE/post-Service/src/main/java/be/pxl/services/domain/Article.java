@@ -34,4 +34,6 @@ public class Article {
 
     @ElementCollection
     private List<String> rejectedBy;
+
+    private int Notification;
 }
