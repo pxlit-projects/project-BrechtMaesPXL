@@ -39,7 +39,7 @@ export class AddArticleComponent {
     };
     const role = CookieServicing.getCookie()?.role;
     console.log("role", role);
-    if (!role) {
+     if (!role) {
       this.router.navigate(['/login']);
       return;
     }
