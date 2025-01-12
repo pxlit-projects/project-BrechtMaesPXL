@@ -10,9 +10,9 @@ import be.pxl.services.domain.Type;
 import be.pxl.services.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -66,7 +66,8 @@ public class ReviewService implements IReviewService{
                     .postId(reviewRequest.getPostId())
                     .build();
         reviewRepository.save(review);
-        var message = new ReviewMessage(review.getPostId(), review.getEditorsId() );
+         ReviewMessage message = new ReviewMessage(review.getPostId(), review.getEditorsId() );
+        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
 
         if (review.getType() == Type.ACCEPTED) {
 
@@ -75,19 +76,16 @@ public class ReviewService implements IReviewService{
             rabbitTemplate.convertAndSend("reject-queue", message);
         }
     }
-    private Boolean checkIfPostExist(Long postId) {
+    public Boolean checkIfPostExist(Long postId) {
         try {
             ResponseEntity<?> response = postClient.getArticleById(postId);
-            if (response == null) {
-                return false;
-            }
-            return true;
+            return response != null;
         } catch (Exception e) {
             return false;
         }
     }
 
-    private Type mapToType(String type) {
+    public Type mapToType(String type) {
         return Type.valueOf(type);
     }
 

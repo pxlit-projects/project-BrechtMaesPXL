@@ -5,6 +5,7 @@ import be.pxl.services.domain.Comment;
 import be.pxl.services.domain.dto.CommentRequest;
 import be.pxl.services.domain.dto.CommentResponse;
 import be.pxl.services.repository.CommentRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -65,11 +66,11 @@ public class CommentService implements ICommentService {
     private Boolean checkIfPostExist(Long postId) {
         try {
             ResponseEntity<?> response = postClient.getArticleById(postId);
-            if (response == null) {
-                return false;
-            }
-            return true;
+            return response != null;
         } catch (Exception e) {
+            if (e instanceof FeignException){
+                return true;
+            }
             return false;
         }
     }

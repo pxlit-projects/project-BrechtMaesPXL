@@ -1,28 +1,23 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from "../../../shared/models/user.model";
-import {UserService} from "../../../shared/services/user.service";
 import {ArticleService} from "../../../shared/services/article.service";
-import {Article} from "../../../shared/models/Article.model";
 import {ArticleResponse} from "../../../shared/models/ArticleRsponse.model";
-import {ArticleItemComponent} from "../article-item/article-item.component";
 import {Filter} from "../../../shared/models/filter.model";
 import {FilterComponent} from "../filter/filter.component";
-import {FormGroup, FormsModule} from "@angular/forms";
-import {Subscription, switchMap} from "rxjs";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import { FormsModule} from "@angular/forms";
+import {Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 import {ReviewArtilceCommentItemComponent} from "../review-artilce-comment-item/review-artilce-comment-item.component";
-import {CommentListComponent} from "../comment-list/comment-list.component";
-import {Comment} from "../../../shared/models/Comment.model";
 import {CookieServicing} from "../../../shared/services/cookie.service";
-import {CommentService} from "../../../shared/services/comment.service";
+import {CommentListComponent} from "../comment-list/comment-list.component";
 
 @Component({
   selector: 'app-article-list',
   imports: [
     FilterComponent,
     ReviewArtilceCommentItemComponent,
-    CommentListComponent,
-    FormsModule
+    FormsModule,
+    CommentListComponent
 
   ],
   templateUrl: './article-list.component.html',

@@ -2,10 +2,10 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { ArticleService } from "../../../shared/services/article.service";
 import { User } from "../../../shared/models/user.model";
 import { CookieServicing } from "../../../shared/services/cookie.service";
-import { CommentService } from "../../../shared/services/comment.service";
 import { Comment } from "../../../shared/models/Comment.model";
 import { FormsModule } from "@angular/forms";
 import {RequestComment} from "../../../shared/models/RequestComment";
+import {CommentService} from "../../../shared/services/comment.service";
 
 @Component({
   selector: 'app-comment-list',

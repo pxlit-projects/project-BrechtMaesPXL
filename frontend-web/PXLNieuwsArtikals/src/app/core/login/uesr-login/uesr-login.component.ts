@@ -63,4 +63,16 @@ export class UesrLoginComponent {
       this.errorMessage = 'Form is invalid. Please fill out all fields correctly.';
     }
   }
+  logout(){
+    this.successMessage = null;
+    this.errorMessage = null;
+    this.loginForm.reset();
+    CookieServicing.removeCookie();
+    if (CookieServicing.getCookie() == null){
+      this.successMessage = "logout successfully.";
+
+    }else {
+      this.errorMessage ="logout not successfully.";
+    }
+  }
 }
